@@ -1,0 +1,24 @@
+{
+  "users": {
+    "admin": [
+      {
+        "id": 5001,
+        "type": "admin",
+        "firstName": "Reza",
+        "lastName": "Moradi",
+        "pass": "1234578",
+        "mail": "rezamoradi0933@gmail.com"
+      }
+    ],
+    "teacher": [
+      {
+        "id": 4001
+      }
+    ],
+    "student": [
+      {
+        "id": 3001
+      }
+    ]
+  }
+}

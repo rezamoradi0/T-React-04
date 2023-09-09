@@ -1,0 +1,43 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "admin": [
+        {
+          "id": 5001,
+          "type": "admin",
+          "firstName": "Reza",
+          "lastName": "Moradi",
+          "pass": "1234578",
+          "mail": "rezamoradi0933@gmail.com"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "teacher": [
+        {
+          "4001": 4001,
+          "type": "teacher",
+          "firstName": "Reza",
+          "lastName": "Moradi",
+          "pass": "1234578",
+          "mail": "rezamoradi0933@gmail.com"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "student": [
+        {
+          "4001": 3001,
+          "type": "student",
+          "firstName": "Reza",
+          "lastName": "Moradi",
+          "pass": "1234578",
+          "mail": "rezamoradi0933@gmail.com"
+        }
+      ]
+    }
+  ]
+}
