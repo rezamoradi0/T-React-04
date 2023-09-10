@@ -7,7 +7,7 @@
       "lastName": "Moradi",
       "pass": "12345678",
       "mail": "rezamoradi0933@gmail.com",
-      "token":"qwer1234"
+      "token": "qwer1234"
     },
     {
       "id": 4001,
@@ -16,7 +16,7 @@
       "lastName": "Abbasi",
       "pass": "12345678",
       "mail": "mehdiAbbasi089@gmail.com",
-      "token":"qwer12345"
+      "token": "qwer12345"
     },
     {
       "id": 3001,
@@ -25,7 +25,7 @@
       "lastName": "Mosavi",
       "pass": "12345678",
       "mail": "AliMosavinia@gmail.com",
-      "token":"qwer123456"
+      "token": "qwer123456"
     }
   ]
 }

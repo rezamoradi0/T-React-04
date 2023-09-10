@@ -5,27 +5,24 @@
       "type": "admin",
       "firstName": "Reza",
       "lastName": "Moradi",
-      "pass": "12345678",
-      "mail": "rezamoradi0933@gmail.com",
-      "token":"qwer1234"
+      "pass": "1234578",
+      "mail": "rezamoradi0933@gmail.com"
     },
     {
       "id": 4001,
       "type": "teacher",
       "firstName": "Mehdi",
       "lastName": "Abbasi",
-      "pass": "12345678",
-      "mail": "mehdiAbbasi089@gmail.com",
-      "token":"qwer12345"
+      "pass": "1234578",
+      "mail": "mehdiAbbasi089@gmail.com"
     },
     {
       "id": 3001,
       "type": "student",
       "firstName": "Ali",
       "lastName": "Mosavi",
-      "pass": "12345678",
-      "mail": "AliMosavinia@gmail.com",
-      "token":"qwer123456"
+      "pass": "1234578",
+      "mail": "AliMosavinia@gmail.com"
     }
   ]
 }
