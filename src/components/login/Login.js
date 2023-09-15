@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UseCheckUserPass } from "./../CustomHook/UseCheckUser"
+import { UseCheckUserPass } from './../CustomHook/UseCheckUser';
 import MainLoading from "../loading/MainLoading";
 import { Navigate, useNavigate } from "react-router-dom";
 const Login = () => {
