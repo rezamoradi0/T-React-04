@@ -29,7 +29,7 @@ const TabelRowTerm = (props) => {
             return UsersList.type == "teacher";
           })
         ,props.termInfoObj.teacher).map((teacher) => {
-          return <span className="mr-4 px-3 py-1 rounded-3xl bg-gray-700 text-center">{`${teacher.firstName} ${teacher.lastName}`}</span>;
+          return <span key={crypto.randomUUID()} className="mr-4 px-3 py-1 rounded-3xl bg-gray-700 text-center">{`${teacher.firstName} ${teacher.lastName}`}</span>;
         })}
       </div>
       <button

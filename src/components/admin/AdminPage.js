@@ -11,6 +11,7 @@ import TableRowUser from "../../real_component/table/TableRowUser";
 import TabelRowTerm from "../../real_component/table/TableRowTerm";
 import TableRoHeader from "../../real_component/table/TableRowHeader";
 import TableLoading from "../../real_component/table/TabelLoading";
+import NewStudent from "../../real_component/popbox/NewStudent";
 const AdminPage = (props) => {
   const userAllDataContext = useContext(userAllData);
   const [selectedSection, setSelectedSection] = useState(0);
@@ -24,12 +25,12 @@ const AdminPage = (props) => {
   const [tabAllNumber, setTabAllNumber] = useState(0);
   const [tabPageNumber, setTabPageNumber] = useState(1);
   const [dataBoxHtml, setDataBoxHtml] = useState(<></>);
-
+  const [newItemHtml,setNewItemHtml] =useState(<></>);
   const usersRowHeader = <TableRoHeader selectedSection={selectedSection} />;
   const someUserDiv = (userInfoObj) => {
     // const userId=userInfoObj.id;
     return (
-      <TableRowUser
+      <TableRowUser key={crypto.randomUUID()}
       selectedSection={selectedSection}
 
         userInfoObj={userInfoObj}
@@ -54,7 +55,7 @@ const AdminPage = (props) => {
   };
   const changeTabLoadingDiv = <TableLoading loadingText={loadingText} />;
   useEffect(() => {
-    onChangeSelectedSection();
+    // onChangeSelectedSection();
   }, []);
   useEffect(() => {
     onChangeSelectedSection();
@@ -74,6 +75,16 @@ const AdminPage = (props) => {
   //   galanGadanTracker=galanGadanRef.current.offsetLeft;
 
   // }
+
+  function createNewItem(){
+    function Destroy(){
+      setNewItemHtml(<></>);
+    }
+    function fillInformation(informationDataObj){
+
+    }
+    setNewItemHtml(<NewStudent AllUsersInfoData={ userAllDataContext.userData.allUsersInfoData} AllTermsData={userAllDataContext.userData.allTermsData}  Destroy={Destroy} FillInformation={fillInformation}/>)
+  }
   function getTermInfo(termId){
     const foundedTerm= userAllDataContext.userData.allTermsData.find((theTerm)=>{
       return termId==theTerm.id;
@@ -180,14 +191,14 @@ const AdminPage = (props) => {
         clearTimeout(timeOutSaver);
       }
       const allUsersInfoData = await GetAllUsers();
-      await userAllDataContext.setUserData({
-        ...userAllDataContext.userData,
-        allUsersInfoData: allUsersInfoData,
-      });
+      // await userAllDataContext.setUserData({
+      //   ...userAllDataContext.userData,
+      //   allUsersInfoData: allUsersInfoData,
+      // });
       const allTermsData = await GetAllTerms();
       await userAllDataContext.setUserData({
         ...userAllDataContext.userData,
-        allTermsData: allTermsData,
+        allTermsData: allTermsData,allUsersInfoData:allUsersInfoData
       });
       setLoadingText("Making Tabel ...");
       timeOutSaver = setTimeout(() => {
@@ -198,7 +209,7 @@ const AdminPage = (props) => {
     await getTabInfo();
   }
   return (
-    <div className="w-full min-h-screen bg-[#18181B] text-gray-50 py-8">
+    <div className="w-full min-h-screen bg-[#18181B] text-gray-50 py-8 ">
       <div className="row-info flex flex-col w-full border-0 border-red-500  px-32">
         <div className="flex row justify-between items-center my-4">
           <span>Logo</span>
@@ -238,7 +249,7 @@ const AdminPage = (props) => {
             {" "}
           </span>
         </div>
-        <div ref={dataBoxRef} className="dataBox">
+        <div ref={dataBoxRef} className="dataBox relative">
           <div className="firstRow flex justify-between py-8 px-32">
             <div className="countOfPages flex items-center rounded-3xl border border-gray-800 overflow-hidden p-[1px]">
               <span className="inline-block px-6 py-2  rounded-3xl bg-[#3B82F6]">
@@ -250,18 +261,20 @@ const AdminPage = (props) => {
             </div>
             <div className="searchAndAddItems flex items-center ">
               <div className="searchBoxInput border rounded-3xl px-6 py-2 border-border-dark">
-                <span className="mr-4 text-gray-300"><i class="fa-regular fa-magnifying-glass"></i></span>
+                <span className="mr-4 text-gray-300"><i className="fa-regular fa-magnifying-glass"></i></span>
                 <input
                   className="text-gray-300 bg-transparent outline-none"
                   type="text"
                   name="searchtext"
-                  value=""
+                
                 />
               </div>
-              <div className="addNewItem flex justify-between items-center border rounded-3xl px-6 py-2 border-border-dark mx-4">
-                <span className="text-blue-500"><i class="fa-solid fa-hexagon-plus"></i></span>
-                <span className="mx-2">NewItem</span>
-              </div>
+              <button onClick={()=>{
+                createNewItem();
+              }} type="button" className="addNewItem flex justify-between items-center border rounded-3xl px-6 py-2 border-border-dark mx-4">
+                <span className="text-blue-500"><i className="fa-solid fa-hexagon-plus"></i></span>
+                <span className="mx-2">{selectedSection==3?"New Student":"New Item"}</span>
+                </button> 
             </div>
           </div>
           <div className="dataBoxRow border border-gray-800 rounded-t-2xl  transition-all duration-1000 rounded-b-sm relative mx-auto w-10/12 min-h-[45vh]  flex flex-col overflow-y-auto">
@@ -269,8 +282,10 @@ const AdminPage = (props) => {
             {dataBoxHtml}
             {isLoading && changeTabLoadingDiv}
           </div>
+          
         </div>
       </div>
+      {newItemHtml}
     </div>
   );
 };

@@ -17,7 +17,7 @@ const TableRowUser = (props) => {
             console.log(theObj);
             // return singleUserTerm.termId;
             return (
-              <span className="flex w-fit items-center rounded-3xl border border-gray-800 overflow-hidden p-[1px]">
+              <span key={crypto.randomUUID()} className="flex w-fit items-center rounded-3xl border border-gray-800 overflow-hidden p-[1px]">
                 <span className="inline-block px-4 py-1  rounded-3xl bg-[#3B82F6]">{theObj && theObj.term.name} </span>
                 <span className=" px-4 py-1 ">
                   {theObj &&
@@ -48,6 +48,7 @@ const TableRowUser = (props) => {
   
   }
 else if(props.selectedSection == 2)  {
+  //Teachers
     return (
       <div
         key={crypto.randomUUID()}
@@ -65,7 +66,7 @@ else if(props.selectedSection == 2)  {
         {props.userInfoObj.booksId.map((termId)=>{
              const termInfo= props.getTermInfo(termId);
               return (
-                <span className="flex w-fit items-center rounded-3xl border  border-gray-800 overflow-hidden p-[1px]">
+                <span key={crypto.randomUUID()} className="flex w-fit items-center rounded-3xl border  border-gray-800 overflow-hidden p-[1px]">
                   <span className="inline-block px-4 py-1  rounded-3xl bg-[#3B82F6]">{termInfo && termInfo.name} </span>
                   <span className=" px-4 py-1 ">
                     {termInfo &&

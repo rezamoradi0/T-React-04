@@ -13,27 +13,35 @@ const Home = () => {
   useEffect(() => {
 
     if (haveInfo == 2) {
+      console.log("line 16: GetUserData");
       GetUserData();
     }
   }, [haveInfo]);
   async function GetUserData() {
+    
+    
     const personalData = await GetPersonalData();
-    console.log(personalData);
+    
     userAllDataContext.setUserData({
       ...userAllDataContext.userData,
     personalData: personalData,
     });
     setHaveUserInfo(true);
+    console.log("After personalID");
+
   }
   if (haveInfo == 0&&!haveUserInfo) {
-    return <MainLoading />;
+    return <MainLoading Text="User Info Checking"/>;
   } else if (haveInfo == 1) {
     // return <Navigate to={"/login"} />;
     return use_navigate("/login");
-  } else if (haveUserInfo&&haveInfo) {
-    console.log(userAllDataContext.userData);
+  } else if (haveUserInfo&&haveInfo==2) {
+    console.log("line 40: ");
+    console.log( userAllDataContext.userData);
 
     if (userAllDataContext.userData.personalData.type == "admin") {
+      console.log("line 43: ");
+      console.log( userAllDataContext.userData);
       return <AdminPage  PersonalData={userAllDataContext.userData.personalData}/>;
     } else if (userAllDataContext.userData.personalData.type == "teacher") {
       return <div> Teacher Page</div>;

@@ -15,3 +15,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@keyframes open-window {
+  0%{
+    overflow: hidden;
+    width: 0px;
+  }
+  100%{
+    overflow: auto;
+    width: 100%;
+  }
+}
+@keyframes close-window {
+  0%{
+    overflow: auto;
+    width: 100%;
+  }
+  100%{
+    overflow: hidden;
+    width: 0%;
+  }
+}
+.student-box{
+  animation-duration: 1s;
+  /* background: #000; */
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+.new-student-box{
+  animation-name:  open-window;
+}
+.close-student-box{
+  animation-name:  close-window;
+
+}
