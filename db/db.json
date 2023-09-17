@@ -33,9 +33,7 @@
       "mail": "AkbarGhasab089@gmail.com",
       "token": "qwer12345",
       "personalId": "4000138312433",
-      "booksId": [
-        7
-      ]
+      "booksId": []
     },
     {
       "id": 4003,
@@ -64,8 +62,8 @@
       "booksId": [
         1,
         2,
-        3,
-        6
+        3
+        
       ]
     },
     {
@@ -125,6 +123,17 @@
           "termTeacherId": 4001
         }
       ]
+    },
+    {
+      "type": "teacher",
+      "firstName": "result!=false",
+      "lastName": "result!=false",
+      "mail": "result!=false",
+      "pass": "result!=false",
+      "personalId": "result!=false",
+      "mainTerm": "result!=false",
+      "booksId": [],
+      "id": 5002
     }
   ],
   "terms": [
@@ -193,61 +202,6 @@
         4002,
         4003,
         4004
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Tailwind",
-      "code": "1346",
-      "size": 1,
-      "teacher": [
-        4001
-      ]
-    },
-    {
-      "id": 7,
-      "name": "React Redux",
-      "code": "1653",
-      "size": 4,
-      "teacher": [
-        4001,
-        4002,
-        4003,
-        4004
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Professional Js",
-      "code": "1543",
-      "size": 4,
-      "teacher": [
-        4001,
-        5002
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Next Js",
-      "code": "2343",
-      "size": 4,
-      "teacher": [
-        4001,
-        4002,
-        4003,
-        4004
-      ]
-    },
-    {
-      "id": 10,
-      "name": "TypeScript",
-      "code": "1343",
-      "size": 4,
-      "teacher": [
-        4002,
-        4003,
-        4004,
-        5002
       ]
     }
   ]

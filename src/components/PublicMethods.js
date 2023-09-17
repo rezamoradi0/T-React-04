@@ -92,12 +92,24 @@ export async function RemoveSomeTerm(id) {
     .then((res) => res.data)
     .catch((error) => "someError");
   if (userInfo.token == userToken && userInfo.type == "admin") {
+    const termDataObj=await GetTermInfo(id);
     const result = await axios
-      .delete(`http://localhost:3001/terms/${id}`)
+      .delete(`http://localhost:3001/terms/${id}`).then(res=>res.data)
       .catch(false);
     console.log("result of Delete : " + result);
-    if(result.teacher.length>=0){
-      
+    console.log( result);
+    if(result!==false){
+    
+      termDataObj.teacher.map(async(teacherId)=>{
+        console.log("teacherId "+teacherId)
+          const teacherInfo=await GetPersonInfo(teacherId);
+          console.log("teacherInfo "+teacherInfo)
+          console.log(teacherInfo);
+          const teacherBooks=  teacherInfo.booksId.filter((termId)=> termId!=termDataObj.id);
+          console.log("teacherBooks");
+          console.log(teacherBooks);
+          const updateResult=await UpdateTeacherTermsOnDeleteTerm(teacherBooks,teacherId);
+      })
     }
     return result ? true : false;
   }
@@ -130,4 +142,14 @@ async function UpdateTermOnNewTeacher(createdObj,termObj) {
 async function UpdateTermOnDeleteTeacher(termObj) {
   const res= await axios.patch(`http://localhost:3001/terms/${termObj.id}`,{teacher:termObj.teacher}).then(res=>res.data);
 
+}
+async function GetPersonInfo(id){
+  const personObject=await axios.get(`http://localhost:3001/users/${id}`).then(res=>res.data).catch(e=>"error");
+  if(personObject=="error")alert("someError");
+  return personObject;
+}
+async function UpdateTeacherTermsOnDeleteTerm(teacherTerms,teacherId){
+ const res=await axios.patch(`http://localhost:3001/users/${teacherId}`,{booksId:teacherTerms}).then(res=>res.data).catch(e=>"error");
+ if(res=="error")alert("error UpdateTeacherTermsOnDeleteTerm");
+ return  res;
 }
