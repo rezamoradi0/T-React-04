@@ -125,64 +125,6 @@
           "termTeacherId": 4001
         }
       ]
-    },
-    {
-      "id": 3007,
-      "type": "student",
-      "firstName": "Saro",
-      "lastName": "Jafari",
-      "pass": "12345678",
-      "mail": "SaroJafari@gmail.com",
-      "token": "qwer123456",
-      "personalId": "3000140012433",
-      "mainTerm": "Computer",
-      "userTerm": [
-        {
-          "termId": 0,
-          "termTeacherId": 4002
-        },
-        {
-          "termId": 2,
-          "termTeacherId": 4003
-        },
-        {
-          "termId": 3,
-          "termTeacherId": 4001
-        },
-        {
-          "termId": 1,
-          "termTeacherId": 4001
-        }
-      ]
-    },
-    {
-      "id": 3004,
-      "type": "student",
-      "firstName": "Saro",
-      "lastName": "Jafari",
-      "pass": "12345678",
-      "mail": "SaroJafari@gmail.com",
-      "token": "qwer123456",
-      "personalId": "3000140012433",
-      "mainTerm": "Computer",
-      "userTerm": [
-        {
-          "termId": 0,
-          "termTeacherId": 4002
-        },
-        {
-          "termId": 2,
-          "termTeacherId": 4003
-        },
-        {
-          "termId": 3,
-          "termTeacherId": 4001
-        },
-        {
-          "termId": 1,
-          "termTeacherId": 4001
-        }
-      ]
     }
   ],
   "terms": [
@@ -194,7 +136,8 @@
       "teacher": [
         4002,
         4003,
-        4004
+        4004,
+        5002
       ]
     },
     {
@@ -279,7 +222,8 @@
       "code": "1543",
       "size": 4,
       "teacher": [
-        4001
+        4001,
+        5002
       ]
     },
     {
@@ -302,7 +246,8 @@
       "teacher": [
         4002,
         4003,
-        4004
+        4004,
+        5002
       ]
     }
   ]

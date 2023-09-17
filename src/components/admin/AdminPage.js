@@ -5,7 +5,7 @@ import {
   GetAllTerms,
   RemoveSomeUser,
   RemoveSomeTerm,
-  AddNewStudent,
+  AddNewPerson,
 } from "./../PublicMethods";
 import { act } from "react-dom/test-utils";
 import TableRowUser from "../../real_component/table/TableRowUser";
@@ -13,6 +13,7 @@ import TabelRowTerm from "../../real_component/table/TableRowTerm";
 import TableRoHeader from "../../real_component/table/TableRowHeader";
 import TableLoading from "../../real_component/table/TabelLoading";
 import NewStudent from "../../real_component/popbox/NewStudent";
+import NewTeacher from "../../real_component/popbox/NewTeacher";
 const AdminPage = (props) => {
   const userAllDataContext = useContext(userAllData);
   const [selectedSection, setSelectedSection] = useState(0);
@@ -100,13 +101,23 @@ const AdminPage = (props) => {
     function Destroy() {
       setNewItemHtml(<></>);
     }
-    async function fillInformation(NewStudentDataObj) {
-      console.log(NewStudentDataObj);
-      const newStudentObj = await AddNewStudent(NewStudentDataObj);
-      if (newStudentObj != "error") {
-        console.log(newStudentObj.id + "  " + newStudentObj.firstName);
-        AddNewUserCallBack(newStudentObj);
+    async function fillInformation(NewPersonDataObj) {
+      if(NewPersonDataObj.type=="student"){
+        console.log(NewPersonDataObj);
+        const newStudentObj = await AddNewPerson(NewPersonDataObj);
+        if (newStudentObj != "error") {
+          console.log(newStudentObj.id + "  " + newStudentObj.firstName);
+          AddNewUserCallBack(newStudentObj);
+        }
+      }else  if(NewPersonDataObj.type=="teacher"){
+        console.log(NewPersonDataObj);
+        const newTeacherObj = await AddNewPerson(NewPersonDataObj);
+        if (newTeacherObj != "error") {
+          console.log(newTeacherObj.id + "  " + newTeacherObj.firstName);
+          AddNewUserCallBack(newTeacherObj);
+        }
       }
+     
     }
     function AddNewUserCallBack(userObject) {
       userAllDataContext.setUserData({
@@ -128,7 +139,11 @@ const AdminPage = (props) => {
         />
       );
     } else if (selectedSection == 2) {
-      alert("nothing");
+      setNewItemHtml(<NewTeacher
+      AllTermsData={userAllDataContext.userData.allTermsData}
+      Destroy={Destroy}
+      FillInformation={fillInformation}
+    />);
     }
   }
   function getTermInfo(termId) {

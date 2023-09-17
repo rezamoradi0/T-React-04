@@ -52,13 +52,23 @@ export async function RemoveSomeUser(id) {
       .then((res) => res.data)
       .catch(false);
     console.log(targetInfo);
-    alert(id);
+    // alert(id);
     if (targetInfo.type == "admin") return false;
-    alert(targetInfo.type);
+    // alert(targetInfo.type);
     const result = await axios
       .delete(`http://localhost:3001/users/${id}`)
       .catch(false);
     console.log("result of Delete : " + result);
+    if(result.type=="teacher"){
+      result.booksId.map(async(termId)=>{
+       const termObj=await GetTermInfo(termId);
+       termObj.teacher=termObj.teacher.filter((teacherId)=>{
+        return teacherId!=result.id;
+       });
+       await UpdateTermOnDeleteTeacher(termObj)
+      });
+    }
+  
 
     return result ? true : false;
   } else {
@@ -86,17 +96,38 @@ export async function RemoveSomeTerm(id) {
       .delete(`http://localhost:3001/terms/${id}`)
       .catch(false);
     console.log("result of Delete : " + result);
-
+    if(result.teacher.length>=0){
+      
+    }
     return result ? true : false;
   }
   return false;
 }
 
-export async function AddNewStudent(studentObj) {
-  
-  const res = await axios
-    .post("http://localhost:3001/users/", studentObj)
+export async function AddNewPerson(personOBj) {
+  const createdObj = await axios
+    .post("http://localhost:3001/users/", personOBj)
     .then((res) => res.data)
     .catch((error) => "error");
-  return res;
+  if (createdObj != "error" && createdObj.type == "teacher") {
+    createdObj.booksId.map(async (bookId) => {
+      const termObj= await GetTermInfo(bookId);
+      await UpdateTermOnNewTeacher(createdObj,termObj);
+    });
+  }
+  return createdObj;
+}
+async function GetTermInfo(id) {
+  const termObj = await axios
+    .get(`http://localhost:3001/terms/${id}`)
+    .then((res) => res.data).catch(e=>"error");
+ if(termObj=="termObj") alert("error ... GetTermInfo PublicMethods");
+  return termObj;
+}
+async function UpdateTermOnNewTeacher(createdObj,termObj) {
+ const res= await axios.patch(`http://localhost:3001/terms/${termObj.id}`,{teacher:[...termObj.teacher,createdObj.id]}).then(res=>res.data);
+}
+async function UpdateTermOnDeleteTeacher(termObj) {
+  const res= await axios.patch(`http://localhost:3001/terms/${termObj.id}`,{teacher:termObj.teacher}).then(res=>res.data);
+
 }
