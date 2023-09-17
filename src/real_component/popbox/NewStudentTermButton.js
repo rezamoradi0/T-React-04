@@ -8,7 +8,7 @@ const NewStudentTemButton = (props) => {
         onClick={(event) => {
         const res=   props.ToggleTerm(event, props.termInfo.id, props.teacherInfo.id);
         setSelected(res);
-        console.log(res)
+        // console.log(res)
         }}
         type="button"
         key={crypto.randomUUID()}

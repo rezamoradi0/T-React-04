@@ -5,6 +5,7 @@ import {
   GetAllTerms,
   RemoveSomeUser,
   RemoveSomeTerm,
+  AddNewStudent,
 } from "./../PublicMethods";
 import { act } from "react-dom/test-utils";
 import TableRowUser from "../../real_component/table/TableRowUser";
@@ -19,20 +20,20 @@ const AdminPage = (props) => {
   const adminTabsRef = [useRef(), useRef(), useRef(), useRef(), useRef()];
   const dataBoxRef = useRef();
   const galanGadanRef = useRef();
-  let galanGadanTracker = null;
+  // let galanGadanTracker = null;
   const [isLoading, setIsLoading] = useState(true);
   const [loadingText, setLoadingText] = useState("loading");
   const [tabAllNumber, setTabAllNumber] = useState(0);
   const [tabPageNumber, setTabPageNumber] = useState(1);
   const [dataBoxHtml, setDataBoxHtml] = useState(<></>);
-  const [newItemHtml,setNewItemHtml] =useState(<></>);
+  const [newItemHtml, setNewItemHtml] = useState(<></>);
   const usersRowHeader = <TableRoHeader selectedSection={selectedSection} />;
   const someUserDiv = (userInfoObj) => {
     // const userId=userInfoObj.id;
     return (
-      <TableRowUser key={crypto.randomUUID()}
-      selectedSection={selectedSection}
-
+      <TableRowUser
+        key={crypto.randomUUID()}
+        selectedSection={selectedSection}
         userInfoObj={userInfoObj}
         RemoveSomeUser={RemoveSomeUser}
         onRemoveSomeData={onRemoveSomeData}
@@ -49,7 +50,6 @@ const AdminPage = (props) => {
         UsersList={userAllDataContext.userData.allUsersInfoData}
         RemoveSomeTerm={RemoveSomeTerm}
         onRemoveSomeData={onRemoveSomeData}
-        
       />
     );
   };
@@ -75,36 +75,86 @@ const AdminPage = (props) => {
   //   galanGadanTracker=galanGadanRef.current.offsetLeft;
 
   // }
+  function getButtonName() {
+    switch (selectedSection) {
+      case 0:
+        return "New User";
 
-  function createNewItem(){
-    function Destroy(){
+      case 1:
+        return "New Admin";
+
+      case 2:
+        return "New Teacher";
+
+      case 3:
+        return "New Student";
+
+      case 4:
+        return "New Term";
+
+      default:
+        return "New Item";
+    }
+  }
+  function createNewItem() {
+    function Destroy() {
       setNewItemHtml(<></>);
     }
-    function fillInformation(informationDataObj){
-
+    async function fillInformation(NewStudentDataObj) {
+      console.log(NewStudentDataObj);
+      const newStudentObj = await AddNewStudent(NewStudentDataObj);
+      if (newStudentObj != "error") {
+        console.log(newStudentObj.id + "  " + newStudentObj.firstName);
+        AddNewUserCallBack(newStudentObj);
+      }
     }
-    setNewItemHtml(<NewStudent AllUsersInfoData={ userAllDataContext.userData.allUsersInfoData} AllTermsData={userAllDataContext.userData.allTermsData}  Destroy={Destroy} FillInformation={fillInformation}/>)
+    function AddNewUserCallBack(userObject) {
+      userAllDataContext.setUserData({
+        ...userAllDataContext.userData,
+        allUsersInfoData: [
+          ...userAllDataContext.userData.allUsersInfoData,
+          userObject,
+        ],
+      });
+    }
+    Destroy();
+    if (selectedSection == 3) {
+      setNewItemHtml(
+        <NewStudent
+          AllUsersInfoData={userAllDataContext.userData.allUsersInfoData}
+          AllTermsData={userAllDataContext.userData.allTermsData}
+          Destroy={Destroy}
+          FillInformation={fillInformation}
+        />
+      );
+    } else if (selectedSection == 2) {
+      alert("nothing");
+    }
   }
-  function getTermInfo(termId){
-    const foundedTerm= userAllDataContext.userData.allTermsData.find((theTerm)=>{
-      return termId==theTerm.id;
-    });
+  function getTermInfo(termId) {
+    const foundedTerm = userAllDataContext.userData.allTermsData.find(
+      (theTerm) => {
+        return termId == theTerm.id;
+      }
+    );
     return foundedTerm;
   }
-   function getTermInfoForStudent(userTermObj){
-    
-    const foundedTerm= userAllDataContext.userData.allTermsData.find((theTerm)=>{
-      return userTermObj.termId==theTerm.id;
-    });
+  function getTermInfoForStudent(userTermObj) {
+    const foundedTerm = userAllDataContext.userData.allTermsData.find(
+      (theTerm) => {
+        return userTermObj.termId == theTerm.id;
+      }
+    );
 
-    const foundedTeacher= userAllDataContext.userData.allUsersInfoData.find((theTeacher)=>{
+    const foundedTeacher = userAllDataContext.userData.allUsersInfoData.find(
+      (theTeacher) => {
+        return userTermObj.termTeacherId == theTeacher.id;
+      }
+    );
 
-      return userTermObj.termTeacherId==theTeacher.id;
-    });
-   
     // console.log(foundedTerm.id);
     // console.log(foundedTeacher.id);
-    const theOBJ={term:foundedTerm,teacher:foundedTeacher}
+    const theOBJ = { term: foundedTerm, teacher: foundedTeacher };
     // alert(theOBJ.term.id);
     // alert(theOBJ.teacher.id);
     return theOBJ;
@@ -198,7 +248,8 @@ const AdminPage = (props) => {
       const allTermsData = await GetAllTerms();
       await userAllDataContext.setUserData({
         ...userAllDataContext.userData,
-        allTermsData: allTermsData,allUsersInfoData:allUsersInfoData
+        allTermsData: allTermsData,
+        allUsersInfoData: allUsersInfoData,
       });
       setLoadingText("Making Tabel ...");
       timeOutSaver = setTimeout(() => {
@@ -217,8 +268,9 @@ const AdminPage = (props) => {
             <span className="user-pic rounded-full">
               <img src="" alt="user-pic" />
             </span>
-            <span className="user-name mx-2">{props.PersonalData.firstName}  {props.PersonalData.lastName}</span>
-      
+            <span className="user-name mx-2">
+              {props.PersonalData.firstName} {props.PersonalData.lastName}
+            </span>
           </div>
         </div>
         <div className="text-lg my-8">Admin Management</div>
@@ -261,20 +313,27 @@ const AdminPage = (props) => {
             </div>
             <div className="searchAndAddItems flex items-center ">
               <div className="searchBoxInput border rounded-3xl px-6 py-2 border-border-dark">
-                <span className="mr-4 text-gray-300"><i className="fa-regular fa-magnifying-glass"></i></span>
+                <span className="mr-4 text-gray-300">
+                  <i className="fa-regular fa-magnifying-glass"></i>
+                </span>
                 <input
                   className="text-gray-300 bg-transparent outline-none"
                   type="text"
-                  name="searchtext"
-                
+                  name="searchText"
                 />
               </div>
-              <button onClick={()=>{
-                createNewItem();
-              }} type="button" className="addNewItem flex justify-between items-center border rounded-3xl px-6 py-2 border-border-dark mx-4">
-                <span className="text-blue-500"><i className="fa-solid fa-hexagon-plus"></i></span>
-                <span className="mx-2">{selectedSection==3?"New Student":"New Item"}</span>
-                </button> 
+              <button
+                onClick={() => {
+                  createNewItem();
+                }}
+                type="button"
+                className="addNewItem flex justify-between items-center border rounded-3xl px-6 py-2 border-border-dark mx-4"
+              >
+                <span className="text-blue-500">
+                  <i className="fa-solid fa-hexagon-plus"></i>
+                </span>
+                <span className="mx-2">{getButtonName()}</span>
+              </button>
             </div>
           </div>
           <div className="dataBoxRow border border-gray-800 rounded-t-2xl  transition-all duration-1000 rounded-b-sm relative mx-auto w-10/12 min-h-[45vh]  flex flex-col overflow-y-auto">
@@ -282,7 +341,6 @@ const AdminPage = (props) => {
             {dataBoxHtml}
             {isLoading && changeTabLoadingDiv}
           </div>
-          
         </div>
       </div>
       {newItemHtml}

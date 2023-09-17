@@ -47,11 +47,12 @@ export async function RemoveSomeUser(id) {
     .then((res) => res.data)
     .catch((error) => "someError");
   if (userInfo.token == userToken && userInfo.type == "admin") {
-
     const targetInfo = await axios
-      .get(`http://localhost:3001/users/${id}`).then((res) => res.data).catch(false);
-      console.log(targetInfo)
-      alert(id);
+      .get(`http://localhost:3001/users/${id}`)
+      .then((res) => res.data)
+      .catch(false);
+    console.log(targetInfo);
+    alert(id);
     if (targetInfo.type == "admin") return false;
     alert(targetInfo.type);
     const result = await axios
@@ -64,9 +65,12 @@ export async function RemoveSomeUser(id) {
     return false;
   }
 }
-export async function GetAllTerms(){
-  const termsData =await axios.get("http://localhost:3001/terms/").then(res=>res.data).catch(e=>false);
-  if(termsData==false)return  null;
+export async function GetAllTerms() {
+  const termsData = await axios
+    .get("http://localhost:3001/terms/")
+    .then((res) => res.data)
+    .catch((e) => false);
+  if (termsData == false) return null;
   return termsData;
 }
 
@@ -83,7 +87,16 @@ export async function RemoveSomeTerm(id) {
       .catch(false);
     console.log("result of Delete : " + result);
 
-    return result? true :false;
-  } 
-    return false;
+    return result ? true : false;
+  }
+  return false;
+}
+
+export async function AddNewStudent(studentObj) {
+  
+  const res = await axios
+    .post("http://localhost:3001/users/", studentObj)
+    .then((res) => res.data)
+    .catch((error) => "error");
+  return res;
 }

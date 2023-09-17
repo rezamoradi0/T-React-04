@@ -10,42 +10,44 @@ const NewStudent = (props) => {
   const [password, setPassword] = useState("");
   const [animClass, setAnimClass] = useState("new-student-box");
   const [selectedTerms, setSelectedTerms] = useState([]);
-//   console.log(props.AllTermsData);
-//   console.log(props.AllUsersInfoData);
-useEffect(()=>{
-     console.log(selectedTerms);
-},[selectedTerms])
+  //   console.log(props.AllTermsData);
+  //   console.log(props.AllUsersInfoData);
+  useEffect(() => {
+    console.log(selectedTerms);
+  }, [selectedTerms]);
   function ToggleTerm(event, termId, teacherId) {
     // event.target.style.backgroundColor = "green";
     // console.log(event.target);
     const searchRes = selectedTerms.find((termObject) => {
-      return (termObject.termId == termId && termObject.teacherId == teacherId);
+      return termObject.termId == termId && termObject.termTeacherId == teacherId;
     });
 
     // console.log("search Res " + searchRes)
-    if (searchRes==undefined) {
-
-        // event.target.classList.remove("bg-blue-500") ;
-    //   event.target.classList.add("bg-red-500") ;
-      console.log(event.target);
+    if (searchRes == undefined) {
+      // event.target.classList.remove("bg-blue-500") ;
+      //   event.target.classList.add("bg-red-500") ;
+      // console.log(event.target);
       setSelectedTerms([
         ...selectedTerms,
-        { termId: termId, teacherId: teacherId }
+        { termId: termId, termTeacherId: teacherId },
       ]);
       return true;
-    //   console.log("Red");
-    //   console.log(selectedTerms);
+      //   console.log("Red");
+      //   console.log(selectedTerms);
     } else {
-        const newTerms=[...selectedTerms.filter((term)=>{
-            return term.termId==termId&&term.teacherId== teacherId?false:true;
-         })];
-        setSelectedTerms([...newTerms]);
-        return false;
-        // event.target.classList.remove("bg-red-500") ;
-    //   event.target.classList.add("bg-blue-500") ;
-    //   console.log("Blue");
-    //   console.log(newTerms);
-      
+      const newTerms = [
+        ...selectedTerms.filter((term) => {
+          return term.termId == termId && term.termTeacherId == teacherId
+            ? false
+            : true;
+        }),
+      ];
+      setSelectedTerms([...newTerms]);
+      return false;
+      // event.target.classList.remove("bg-red-500") ;
+      //   event.target.classList.add("bg-blue-500") ;
+      //   console.log("Blue");
+      //   console.log(newTerms);
     }
   }
   function TermCreator(termInfo, teacherId) {
@@ -55,9 +57,26 @@ useEffect(()=>{
     });
     // console.log("teacherInfo  "  +teacherInfo.id)
     // console.log("teacherInfo  "  + teacherInfo.firstName)
-    return <NewStudentTemButton ToggleTerm={ToggleTerm} teacherInfo={teacherInfo} termInfo={termInfo} />
+    return (
+      <NewStudentTemButton
+        ToggleTerm={ToggleTerm}
+        teacherInfo={teacherInfo}
+        termInfo={termInfo}
+      />
+    );
   }
-
+  function SendInformation() {
+    props.FillInformation({
+      type: "student",
+      firstName: firstName,
+      lastName: lastName,
+      mail: email,
+      pass: password,
+      personalId:personalId,
+      mainTerm:mainTerm,
+      userTerm: selectedTerms
+    });
+  }
   return (
     <div
       className={`${animClass} student-box fixed flex flex-col justify-center items-center  w-full h-full bg-gray-950 top-0 left-0`}
@@ -153,6 +172,7 @@ useEffect(()=>{
             //   props.Destroy();
             setAnimClass("close-student-box");
             setTimeout(props.Destroy, 2000);
+            SendInformation();
           }}
           type="button"
         >
