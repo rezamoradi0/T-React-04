@@ -19,9 +19,7 @@
       "mainTerm": "ewrewr",
       "booksId": [
         1,
-        4,
-        2,
-        3
+        2
       ],
       "id": 5002
     },
@@ -33,11 +31,29 @@
       "pass": "wqerer3234234",
       "personalId": "23123",
       "mainTerm": "WebDeveloper",
-      "booksId": [
-        4,
-        3
-      ],
+      "booksId": [],
       "id": 5003
+    },
+    {
+      "type": "student",
+      "firstName": "StudentName",
+      "lastName": "Family",
+      "mail": "Email",
+      "pass": "12345678",
+      "personalId": "94281",
+      "mainTerm": "IT",
+      "userTerm": [
+        {
+          "termId": 1,
+          "termTeacherId": 5002
+        },
+        {
+          "termId": 2,
+          "termTeacherId": 5002
+        }
+      ],
+      "id": 5004,
+      "token": "d5950d75-8daa-4380-85ba-23c3c51aee5e"
     }
   ],
   "terms": [
@@ -58,26 +74,6 @@
       "teacher": [
         5002
       ]
-    },
-    {
-      "id": 3,
-      "name": "Javascript",
-      "code": "6432",
-      "size": 5,
-      "teacher": [
-        5002,
-        5003
-      ]
-    },
-    {
-      "name": "React",
-      "code": "213",
-      "size": "2",
-      "teacher": [
-        5002,
-        5003
-      ],
-      "id": 4
     }
   ]
 }

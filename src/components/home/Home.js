@@ -5,6 +5,7 @@ import MainLoading from "../loading/MainLoading";
 import { userAllData } from "../../App";
 import { GetPersonalData } from "../PublicMethods";
 import AdminPage from "../admin/AdminPage";
+import StudentDashboard from "../../real_pages/student/StudentDashboard";
 const Home = () => {
   const [haveInfo] = UseCheckUserHaveInfo();
   const [haveUserInfo, setHaveUserInfo] = useState(false);
@@ -30,6 +31,8 @@ const Home = () => {
     console.log("After personalID");
 
   }
+  //user haveInfo in localStorage 0 =>Loading 1=>false 2=>true
+  //server haveUserInfo (token) => true or error => forward to /login page and setting New Token (after password checked)
   if (haveInfo == 0&&!haveUserInfo) {
     return <MainLoading Text="User Info Checking"/>;
   } else if (haveInfo == 1) {
@@ -48,7 +51,7 @@ const Home = () => {
     } else if (userAllDataContext.userData.personalData.type == "student") {
     
       console.log(userAllDataContext.userData);
-      return <div>Student page</div>;
+      return <StudentDashboard  PersonalData={userAllDataContext.userData.personalData}/>;
     }
   } else {
     return <MainLoading Text={"Loading"} />;

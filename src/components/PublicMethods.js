@@ -9,7 +9,6 @@ export function GetToLocal(key) {
 export function RemvoeItemLocal(key) {
   return localStorage.removeItem(key);
 }
-
 /**
  * Get Persoanl Data
  * @returns Personal Info Object
@@ -38,7 +37,6 @@ export async function GetAllUsers() {
   console.log(allUsersObj);
   return allUsersObj;
 }
-
 export async function RemoveSomeUser(id) {
   const userId = GetToLocal("userId");
   const userToken = GetToLocal("token");
@@ -83,7 +81,6 @@ export async function GetAllTerms() {
   if (termsData == false) return null;
   return termsData;
 }
-
 export async function RemoveSomeTerm(id) {
   const userId = GetToLocal("userId");
   const userToken = GetToLocal("token");
@@ -115,7 +112,6 @@ export async function RemoveSomeTerm(id) {
   }
   return false;
 }
-
 export async function AddNewPerson(personOBj) {
   const createdObj = await axios
     .post("http://localhost:3001/users/", personOBj)

@@ -51,6 +51,7 @@ export const UseCheckUserPass = (_userId, _userPass) => {
     id: _userId,
     pass: _userPass,
   });
+
   async function CheckUserCanPass() {
     setCanPass(1);
     const userInfo = await axios
@@ -62,7 +63,9 @@ export const UseCheckUserPass = (_userId, _userPass) => {
     if (userIdPass.pass == userInfo.pass) {
       SaveToLocal("userId", userIdPass.id);
       SaveToLocal("userPass", userIdPass.pass);
-      SaveToLocal("token", userInfo.token);
+      const newToken= crypto.randomUUID();
+      await axios.patch(`http://localhost:3001/users/${userIdPass.id}`,{token:newToken})
+      SaveToLocal("token", newToken);
       setCanPass(3);
     } else {
       setCanPass(2);

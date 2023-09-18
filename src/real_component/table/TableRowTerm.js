@@ -39,7 +39,7 @@ const TabelRowTerm = (props) => {
           }
         }}
         className="absolute hover:bg-red-900 group-hover:-translate-x-9 transition-all duration-500 px-3 py-1 rounded-3xl right-0 delay-300 bg-gray-800 translate-x-full"
-        type="button"
+       key={crypto.randomUUID()}  type="button"
       >
         {" "}
         Remove{" "}

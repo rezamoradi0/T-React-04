@@ -48,7 +48,7 @@ const AdminPage = (props) => {
   const someTermDiv = (termInfoObj) => {
     // const userId=userInfoObj.id;
     return (
-      <TabelRowTerm
+      <TabelRowTerm   key={crypto.randomUUID()} 
         termInfoObj={termInfoObj}
         UsersList={userAllDataContext.userData.allUsersInfoData}
         RemoveSomeTerm={RemoveSomeTerm}
@@ -81,10 +81,10 @@ const AdminPage = (props) => {
   function getButtonName() {
     switch (selectedSection) {
       case 0:
-        return "New User";
+        return "New User (Upcoming)";
 
       case 1:
-        return "New Admin";
+        return "New Admin (Upcoming)";
 
       case 2:
         return "New Teacher";
