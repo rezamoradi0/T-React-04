@@ -10,154 +10,44 @@
       "token": "qwer1234"
     },
     {
-      "id": 4001,
       "type": "teacher",
       "firstName": "Mehdi",
       "lastName": "Abbasi",
-      "pass": "12345678",
-      "mail": "mehdiAbbasi089@gmail.com",
-      "token": "qwer12345",
-      "personalId": "4000138312432",
-      "booksId": [
-        5,
-        3,
-        1
-      ]
-    },
-    {
-      "id": 4002,
-      "type": "teacher",
-      "firstName": "Akbar",
-      "lastName": "Ghasab",
-      "pass": "12345678",
-      "mail": "AkbarGhasab089@gmail.com",
-      "token": "qwer12345",
-      "personalId": "4000138312433",
-      "booksId": []
-    },
-    {
-      "id": 4003,
-      "type": "teacher",
-      "firstName": "Mr",
-      "lastName": "Beast",
-      "pass": "12345678",
-      "mail": "MrBeast@gmail.com",
-      "token": "qwer12345",
-      "personalId": "4000138312434",
-      "booksId": [
-        4,
-        5,
-        3
-      ]
-    },
-    {
-      "id": 4004,
-      "type": "teacher",
-      "firstName": "NoOne",
-      "lastName": "Nothing",
-      "pass": "12345678",
-      "mail": "NoOneAndNothing@gmail.com",
-      "token": "qwer12345",
-      "personalId": "4000138312435",
+      "mail": "MehdiAbbasi@gmail.com",
+      "pass": "w2ewerewr",
+      "personalId": "2134",
+      "mainTerm": "ewrewr",
       "booksId": [
         1,
+        4,
         2,
         3
-        
-      ]
-    },
-    {
-      "id": 3002,
-      "type": "student",
-      "firstName": "Ali",
-      "lastName": "Mosavi",
-      "pass": "12345678",
-      "mail": "AliMosavinia@gmail.com",
-      "token": "qwer123456",
-      "personalId": "3000140012432",
-      "mainTerm": "Computer",
-      "userTerm": [
-        {
-          "termId": 0,
-          "termTeacherId": 4002
-        },
-        {
-          "termId": 2,
-          "termTeacherId": 4003
-        },
-        {
-          "termId": 3,
-          "termTeacherId": 4001
-        },
-        {
-          "termId": 1,
-          "termTeacherId": 4001
-        }
-      ]
-    },
-    {
-      "id": 3003,
-      "type": "student",
-      "firstName": "Saro",
-      "lastName": "Jafari",
-      "pass": "12345678",
-      "mail": "SaroJafari@gmail.com",
-      "token": "qwer123456",
-      "personalId": "3000140012433",
-      "mainTerm": "Computer",
-      "userTerm": [
-        {
-          "termId": 0,
-          "termTeacherId": 4002
-        },
-        {
-          "termId": 2,
-          "termTeacherId": 4003
-        },
-        {
-          "termId": 3,
-          "termTeacherId": 4001
-        },
-        {
-          "termId": 1,
-          "termTeacherId": 4001
-        }
-      ]
+      ],
+      "id": 5002
     },
     {
       "type": "teacher",
-      "firstName": "result!=false",
-      "lastName": "result!=false",
-      "mail": "result!=false",
-      "pass": "result!=false",
-      "personalId": "result!=false",
-      "mainTerm": "result!=false",
-      "booksId": [],
-      "id": 5002
+      "firstName": "Jonas",
+      "lastName": "SDfsdf",
+      "mail": "jona@gamil.com",
+      "pass": "wqerer3234234",
+      "personalId": "23123",
+      "mainTerm": "WebDeveloper",
+      "booksId": [
+        4,
+        3
+      ],
+      "id": 5003
     }
   ],
   "terms": [
-    {
-      "id": 0,
-      "name": "Html",
-      "code": "2394",
-      "size": 1,
-      "teacher": [
-        4002,
-        4003,
-        4004,
-        5002
-      ]
-    },
     {
       "id": 1,
       "name": "Css",
       "code": "1132",
       "size": 2,
       "teacher": [
-        4002,
-        4003,
-        4004
+        5002
       ]
     },
     {
@@ -166,9 +56,7 @@
       "code": "3432",
       "size": 2,
       "teacher": [
-        4001,
-        4002,
-        4004
+        5002
       ]
     },
     {
@@ -177,32 +65,19 @@
       "code": "6432",
       "size": 5,
       "teacher": [
-        4002,
-        4004
+        5002,
+        5003
       ]
     },
     {
-      "id": 4,
-      "name": "Jquery",
-      "code": "2345",
-      "size": 1,
+      "name": "React",
+      "code": "213",
+      "size": "2",
       "teacher": [
-        4001,
-        4002,
-        4003,
-        4004
-      ]
-    },
-    {
-      "id": 5,
-      "name": "React Js",
-      "code": "3443",
-      "size": 4,
-      "teacher": [
-        4002,
-        4003,
-        4004
-      ]
+        5002,
+        5003
+      ],
+      "id": 4
     }
   ]
 }

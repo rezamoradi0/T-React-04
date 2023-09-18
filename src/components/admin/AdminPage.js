@@ -6,6 +6,7 @@ import {
   RemoveSomeUser,
   RemoveSomeTerm,
   AddNewPerson,
+  AddNewTerm,
 } from "./../PublicMethods";
 import { act } from "react-dom/test-utils";
 import TableRowUser from "../../real_component/table/TableRowUser";
@@ -14,6 +15,7 @@ import TableRoHeader from "../../real_component/table/TableRowHeader";
 import TableLoading from "../../real_component/table/TabelLoading";
 import NewStudent from "../../real_component/popbox/NewStudent";
 import NewTeacher from "../../real_component/popbox/NewTeacher";
+import NewTerm from "../../real_component/popbox/NewTerm";
 const AdminPage = (props) => {
   const userAllDataContext = useContext(userAllData);
   const [selectedSection, setSelectedSection] = useState(0);
@@ -101,8 +103,14 @@ const AdminPage = (props) => {
     function Destroy() {
       setNewItemHtml(<></>);
     }
-    async function fillInformation(NewPersonDataObj) {
-      if(NewPersonDataObj.type=="student"){
+    async function fillInformation(NewPersonDataObj,isTerm=false) {
+      if(isTerm){
+        const newTermObj=await AddNewTerm(NewPersonDataObj);
+        if(newTermObj!="error"){
+          AddNewTermCallBack(newTermObj);
+        }
+      }
+      else if(NewPersonDataObj.type=="student"){
         console.log(NewPersonDataObj);
         const newStudentObj = await AddNewPerson(NewPersonDataObj);
         if (newStudentObj != "error") {
@@ -119,7 +127,16 @@ const AdminPage = (props) => {
       }
      
     }
-    function AddNewUserCallBack(userObject) {
+    async function AddNewTermCallBack(termObject) {
+      userAllDataContext.setUserData({
+        ...userAllDataContext.userData,
+        allTermsData: [
+          ...userAllDataContext.userData.allTermsData,
+          termObject,
+        ],
+      });
+    }
+    async function AddNewUserCallBack(userObject) {
       userAllDataContext.setUserData({
         ...userAllDataContext.userData,
         allUsersInfoData: [
@@ -144,6 +161,13 @@ const AdminPage = (props) => {
       Destroy={Destroy}
       FillInformation={fillInformation}
     />);
+    }
+    else if (selectedSection == 4) {
+      setNewItemHtml(<NewTerm
+        AllUsersInfoData={userAllDataContext.userData.allUsersInfoData}
+        Destroy={Destroy}
+        FillInformation={fillInformation}
+      />);
     }
   }
   function getTermInfo(termId) {
@@ -327,7 +351,7 @@ const AdminPage = (props) => {
               </span>
             </div>
             <div className="searchAndAddItems flex items-center ">
-              <div className="searchBoxInput border rounded-3xl px-6 py-2 border-border-dark">
+              <div className="hidden searchBoxInput border rounded-3xl px-6 py-2 border-border-dark">
                 <span className="mr-4 text-gray-300">
                   <i className="fa-regular fa-magnifying-glass"></i>
                 </span>

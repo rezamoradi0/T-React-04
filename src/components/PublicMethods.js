@@ -153,3 +153,17 @@ async function UpdateTeacherTermsOnDeleteTerm(teacherTerms,teacherId){
  if(res=="error")alert("error UpdateTeacherTermsOnDeleteTerm");
  return  res;
 }
+export async function AddNewTerm(termInfo){
+const res=await axios.post("http://localhost:3001/terms/",termInfo).then(res=>res.data).catch(e=>"error");
+if(res=="error")alert("error AddNewTerm");
+else res.teacher.map(async(teacherId)=>{
+  const teacherObj=await GetPersonInfo(teacherId);
+ const otherRes= await UpdateTeacherTermsOnNewTerm(teacherObj.id,[...teacherObj.booksId,res.id]);
+ if(!otherRes)alert("error")
+});
+return res;
+}
+async function UpdateTeacherTermsOnNewTerm(teacherId,newTermsArray){
+const updateRes=await axios.patch(`http://localhost:3001/users/${teacherId}`,{booksId:newTermsArray}).catch(e=>"error");
+return  true;
+}
