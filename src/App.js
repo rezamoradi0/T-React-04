@@ -9,6 +9,7 @@ function App() {
   const [userData,setUserData]=useState({});
   return (
     <>
+     
       <userAllData.Provider value={{userData:userData,setUserData:setUserData}}>
         <Routes>
           <Route path="/" element={<Home />}></Route>

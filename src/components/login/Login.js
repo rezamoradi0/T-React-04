@@ -11,7 +11,7 @@ const Login = () => {
     const [userPassInput,setUserPassInput] =useState("");
 
     const [cSetUserIdPass,canPass]=UseCheckUserPass(userId,userPassword);
-    const testNavigat=useNavigate();
+    const testNavigate=useNavigate();
    const idChangeHandler=(event)=>{
   
     setUserIdInput(event.target.value);
@@ -32,7 +32,7 @@ const Login = () => {
     alert(" رمز و پسورد اشتباه است");
     }else if(canPass===3){
       alert(" رمز و پسورد درسته بزن بریم ؟ ");
-     return testNavigat("/");
+     return testNavigate("/");
     }
    },[canPass]);
 

@@ -15,6 +15,7 @@ const Home = () => {
 
     if (haveInfo == 2) {
       console.log("line 16: GetUserData");
+      
       GetUserData();
     }
   }, [haveInfo]);
@@ -27,6 +28,7 @@ const Home = () => {
       ...userAllDataContext.userData,
     personalData: personalData,
     });
+    console.log( userAllDataContext.userData);
     setHaveUserInfo(true);
     console.log("After personalID");
 
@@ -40,17 +42,17 @@ const Home = () => {
     return use_navigate("/login");
   } else if (haveUserInfo&&haveInfo==2) {
     console.log("line 40: ");
-    console.log( userAllDataContext.userData);
+
 
     if (userAllDataContext.userData.personalData.type == "admin") {
       console.log("line 43: ");
-      console.log( userAllDataContext.userData);
+   
       return <AdminPage  PersonalData={userAllDataContext.userData.personalData}/>;
     } else if (userAllDataContext.userData.personalData.type == "teacher") {
       return <div> Teacher Page</div>;
     } else if (userAllDataContext.userData.personalData.type == "student") {
     
-      console.log(userAllDataContext.userData);
+    
       return <StudentDashboard  PersonalData={userAllDataContext.userData.personalData}/>;
     }
   } else {

@@ -163,3 +163,13 @@ async function UpdateTeacherTermsOnNewTerm(teacherId,newTermsArray){
 const updateRes=await axios.patch(`http://localhost:3001/users/${teacherId}`,{booksId:newTermsArray}).catch(e=>"error");
 return  true;
 }
+export async function GetAllTermsForStudent(){
+const allUserSecured= await GetAllUsers();
+
+return allUserSecured.filter(user=>user.type!="admin"&&user.type!="student").map((user)=>{
+  delete user.pass;
+  delete user.mail;
+  delete user.token;
+  return user;
+});
+}
